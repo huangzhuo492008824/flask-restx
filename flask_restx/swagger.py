@@ -653,6 +653,8 @@ class Swagger(object):
             raise ValueError("Model {0} not registered".format(name))
         specs = self.api.models[name]
         self._registered_models[name] = specs
+        if name in self._registered_models:
+            return ref(model)
         if isinstance(specs, ModelBase):
             for parent in specs.__parents__:
                 self.register_model(parent)
